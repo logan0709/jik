@@ -1,0 +1,42 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-fluentd
+  namespace: weilus-cloud
+data:
+  fluent.conf: |-
+      # Example:
+      # 2015-12-21 23:17:22,066 [salt.state       ][INFO    ] Completed state [net.ipv4.ip_forward] at time 23:17:22.066081
+      <source>
+        @id gateway
+        @type tail
+        format /^(?<time>[^ ]* [^ ,]*)[^\[]*\[[^\]]*\]\[(?<severity>[^ \]]*) *\] (?<message>.*)$/
+        time_format %Y-%m-%d %H:%M:%S
+        path /fluentd/log/gateway.log
+        pos_file /fluentd/log/pos/gateway.pos
+        tag gateway.log
+      </source>
+
+      <match gateway.log>
+          @id elasticsearch
+          @type elasticsearch
+          @log_level info
+          index_name gateway
+          type_name _doc
+          host localhost
+          port 9200
+          logstash_format true
+          <buffer>
+              @type file
+              path /var/log/fluentd-buffers/kubernetes.system.buffer
+              flush_mode interval
+              retry_type exponential_backoff
+              flush_thread_count 2
+              flush_interval 5s
+              retry_forever
+              retry_max_interval 30
+              chunk_limit_size 2M
+              queue_limit_length 8
+              overflow_action block
+          </buffer>
+      </match>

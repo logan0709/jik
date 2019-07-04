@@ -1,0 +1,29 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: cloud-logs-pv
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: cloud-logs-pv
+  nfs:
+    path: /data/nfs-k8s/logs
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: fluent-log-read-pvc
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: cloud-logs-pv

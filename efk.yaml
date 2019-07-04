@@ -1,0 +1,70 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: efk
+  namespace: weilus-cloud
+spec:
+  ports:
+  - port: 5601
+    protocol: TCP
+    targetPort: 5601
+    nodePort: 31101
+  type: NodePort
+  selector:
+    app: efk
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: efk
+  namespace: weilus-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: efk
+  template:
+    metadata:
+      name: efk
+      namespace: weilus-cloud
+      labels:
+        app: efk
+    spec:
+      imagePullSecrets:
+      - name: docker-registry-key
+      volumes:
+      - name: fluentd-conf
+        configMap:
+          name: cm-fluentd
+      - name: fluentd-logs
+        persistentVolumeClaim:
+          claimName: fluent-log-read-pvc
+      - name: elasticsearch-data
+        emptyDir: {}
+      containers:
+      - name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.7.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9200
+        volumeMounts:
+        - name: elasticsearch-data
+          mountPath: /usr/share/elasticsearch/data
+      - name: fluentd
+        image: registry.cn-hangzhou.aliyuncs.com/weilus923/fluent-es:1.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: fluentd-conf
+          mountPath: /fluentd/etc
+        - name: fluentd-logs
+          mountPath: /fluentd/log
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:6.7.2
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ELASTICSEARCH_HOSTS
+          value: http://localhost:9200
+        - name: I18N_LOCALE
+          value: zh-CN
+        ports:
+        - containerPort: 5601
