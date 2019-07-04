@@ -3,5 +3,5 @@
 
 ###jenkins构建
 ```
-    docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/jenkins:2.180 -f jenkins
+docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/jenkins:2.180 jenkins
 ```
