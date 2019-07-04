@@ -10,3 +10,9 @@ docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/jenkins:2.180 jenkin
 ```
 docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/fluent-es:1.0 fluentd
 ```
+
+
+### EFK 部署
+```
+kubectl apply -f efk-pvc.yaml -f efk-configmap.yaml -f efk.yaml
+```
