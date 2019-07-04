@@ -62,7 +62,6 @@ spec:
       containers:
       - name: gitlab
         image: gitlab/gitlab-ce:12.0.1-ce.0
-        command: ["gitlab-ctl","reconfigure"]
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
