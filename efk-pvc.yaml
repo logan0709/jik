@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: cloud-logs-pv
-  namespace: weilus-cloud
+  namespace: weilus-base
 spec:
   capacity:
     storage: 1Gi
@@ -19,7 +19,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: fluent-log-read-pvc
-  namespace: weilus-cloud
+  namespace: weilus-base
 spec:
   accessModes:
   - ReadOnlyMany

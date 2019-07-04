@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: efk
-  namespace: weilus-cloud
+  namespace: weilus-base
 spec:
   ports:
   - port: 5601
@@ -17,7 +17,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: efk
-  namespace: weilus-cloud
+  namespace: weilus-base
 spec:
   replicas: 1
   selector:
@@ -26,7 +26,7 @@ spec:
   template:
     metadata:
       name: efk
-      namespace: weilus-cloud
+      namespace: weilus-base
       labels:
         app: efk
     spec:
