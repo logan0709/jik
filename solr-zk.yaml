@@ -1,0 +1,59 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zookeeper-data-pv
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 300Mi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: zookeeper-data-pv
+  nfs:
+    path: /data/nfs-k8s/zookeeper/data
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zookeeper-data-pvc
+  namespace: solr-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
+  storageClassName: zookeeper-data-pv
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: zookeeper
+  namespace: solr-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      name: zookeeper
+      namespace: solr-cloud
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - name: zookeeper
+        image: zookeeper:3.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+        - name: zookeeper-data
+          mountPath: /data
+      volumes:
+      - name: zookeeper-data
+        persistentVolumeClaim:
+          claimName: zookeeper-data-pvc
