@@ -68,17 +68,22 @@ spec:
         volumeMounts:
         - name: jenkins-data
           mountPath: /var/jenkins_home
-        - name: docker
+        - name: docker-sock
           mountPath: /var/run/docker.sock
-        - name: kubectl
+        - name: kubectl-bin
           mountPath: /usr/bin/kubectl
+        - name: kubectl-conf
+          mountPath: /root/.kube/config
       volumes:
       - name: jenkins-data
         persistentVolumeClaim:
           claimName: jenkins-data-pvc
-      - name: docker
+      - name: docker-sock
         hostPath:
           path: /var/run/docker.sock
-      - name: kubectl
+      - name: kubectl-bin
         hostPath:
           path: /usr/bin/kubectl
+      - name: kubectl-conf
+        hostPath:
+          path: /root/.kube/config
