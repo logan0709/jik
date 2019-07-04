@@ -1,0 +1,75 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: gitlab-data-pv
+  namespace: weilus-base
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: gitlab-data-pv
+  nfs:
+    path: /data/nfs-k8s/gitlab/data
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: gitlab-data-pvc
+  namespace: weilus-base
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: gitlab-data-pv
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gitlab
+  namespace: weilus-base
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 32767  # 30000 - 32767
+  type: NodePort
+  selector:
+    app: gitlab
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: gitlab
+  namespace: weilus-base
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      name: gitlab
+      namespace: weilus-base
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:12.0.1-ce.0
+        command: ["gitlab-ctl","reconfigure"]
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: gitlab-data
+          mountPath: /var/opt/gitlab
+      volumes:
+      - name: gitlab-data
+        persistentVolumeClaim:
+          claimName: gitlab-data-pvc
