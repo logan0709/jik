@@ -24,17 +24,11 @@ docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/fluent-es:1.0 fluent
 kubectl apply -f efk-pvc.yaml -f efk-configmap.yaml -f efk.yaml
 ```
 
-docker run --rm solr:7.7-alpine \
-server/scripts/cloud-scripts/zkcli.sh \
--zkhost 192.168.1.37:2181 \
--cmd upconfig \
--confdir server/solr \
--confname collection1
 ### solrCloud 部署
 ```
 kubectl apply -f zookeeper.yaml
 
-docker run -it --rm zookeeper:3.5 zkCli.sh -server 10.96.10.103:2181
+docker run -it --rm zookeeper:3.5 zkCli.sh -server 192.168.1.37:2181
 
 kubectl apply -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
 ```
