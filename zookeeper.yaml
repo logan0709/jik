@@ -1,17 +1,23 @@
+kind: ConfigMap
 apiVersion: v1
-kind: Service
 metadata:
-  name: zk-hs
+  name: cm-zookeeper
   namespace: weilus-base
-spec:
-  ports:
-  - port: 2888
-    name: server
-  - port: 3888
-    name: leader-election
-  clusterIP: None
-  selector:
-    app: zookeeper
+data:
+  zoo.cfg: |-
+      dataDir=/data
+      dataLogDir=/datalog
+      tickTime=2000
+      initLimit=5
+      syncLimit=2
+      autopurge.snapRetainCount=3
+      autopurge.purgeInterval=0
+      maxClientCnxns=60
+      standaloneEnabled=true
+      admin.enableServer=true
+      server.1=zookeeper-0:2888:3888;2181
+      server.2=zookeeper-1:2888:3888;2181
+
 ---
 apiVersion: v1
 kind: Service
@@ -21,7 +27,6 @@ metadata:
 spec:
   ports:
   - port: 2181
-    name: client
   selector:
     app: zookeeper
 ---
@@ -49,18 +54,15 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2181
-          name: client
-        - containerPort: 2888
-          name: server
-        - containerPort: 3888
-          name: leader-election
-	    command:
-	    - sh
-	    - -c
-	    - "start-zookeeper --servers=2"
         volumeMounts:
         - name: zookeeper-data
           mountPath: /data
+        - name: zookeeper-conf
+          mountPath: /conf
+      volumes:
+      - name: zookeeper-conf
+        configMap:
+          name: cm-zookeeper
   volumeClaimTemplates:
   - metadata:
       name: zookeeper-data
