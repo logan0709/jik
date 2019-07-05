@@ -35,8 +35,9 @@ spec:
       - name: solr
         image: solr:8.0-alpine
         imagePullPolicy: IfNotPresent
-        command: ["bash -c"]
-        args: ["/opt/solr/bin/solr start -f -c -p 8983 -t /data/solrdata"]
+        command: ["bash"]
+        args:
+        - -c "/opt/solr/bin/solr start -f -c -p 8983 -t /data/solrdata"
         env:
         - name: ZK_HOST
           value: 10.96.10.103:2181
