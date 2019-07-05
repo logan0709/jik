@@ -37,12 +37,14 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: ZK_HOST
-          value: 10.96.10.103:2181
+          value: 192.168.1.37:2181
+        - name: solr.data.home
+          value: /data/solrdata
         ports:
         - containerPort: 8983
         volumeMounts:
         - name: data
-          mountPath: /var/solr
+          mountPath: /data/solrdata
   volumeClaimTemplates:
   - metadata:
       name: data
