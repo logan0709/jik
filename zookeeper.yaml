@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: zookeeper
-        image: zookeeper:3.5
+        image: weilus923/zookeeper:3.5
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2181
