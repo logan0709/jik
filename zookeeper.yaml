@@ -16,7 +16,7 @@ metadata:
   namespace: weilus-base
 spec:
   serviceName: zookeeper
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: zookeeper
@@ -38,6 +38,9 @@ spec:
         volumeMounts:
         - name: zookeeper-data
           mountPath: /data
+        volumeMounts:
+        - name: zookeeper-conf
+          mountPath: /conf
   volumeClaimTemplates:
   - metadata:
       name: zookeeper-data
@@ -46,4 +49,12 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 300Mi
+          storage: 200Mi
+  - metadata:
+      name: zookeeper-conf
+    spec:
+      storageClassName: zk-pv
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 50Mi
