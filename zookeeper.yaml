@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zk-hs
+  namespace: weilus-base
 spec:
   ports:
   - port: 2888
@@ -16,6 +17,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zk-cs
+  namespace: weilus-base
 spec:
   ports:
   - port: 2181
@@ -52,6 +54,7 @@ spec:
           name: server
         - containerPort: 3888
           name: leader-election
+	command: ["sh","-c","start-zookeeper --servers=2"]
         volumeMounts:
         - name: zookeeper-data
           mountPath: /data
