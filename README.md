@@ -27,5 +27,11 @@ kubectl apply -f efk-pvc.yaml -f efk-configmap.yaml -f efk.yaml
 
 ### solrCloud 部署
 ```
-kubectl apply -f zookeeper.yaml -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
+kubectl apply -f zookeeper.yaml
+
+docker run -it --rm zookeeper:3.5 zkCli.sh -server 10.96.10.103:2181
+
+kubectl apply -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
 ```
+
+

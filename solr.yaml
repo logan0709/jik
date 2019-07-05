@@ -33,11 +33,8 @@ spec:
     spec:
       containers:
       - name: solr
-        image: solr:8.0-alpine
+        image: solr:7.7-alpine
         imagePullPolicy: IfNotPresent
-        command: ["bash"]
-        args:
-        - -c "/opt/solr/bin/solr start -f -c -p 8983 -t /data/solrdata"
         env:
         - name: ZK_HOST
           value: 10.96.10.103:2181
@@ -45,7 +42,7 @@ spec:
         - containerPort: 8983
         volumeMounts:
         - name: data
-          mountPath: /data/solrdata
+          mountPath: /var/solr
   volumeClaimTemplates:
   - metadata:
       name: data
