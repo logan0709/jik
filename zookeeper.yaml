@@ -1,52 +1,36 @@
-kind: PersistentVolume
 apiVersion: v1
-metadata:
-  name: zookeeper-data-pv
-spec:
-  capacity:
-    storage: 300Mi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: zookeeper-data-pv
-  nfs:
-    path: /data/nfs-k8s/zookeeper/data
-    server: 192.168.1.38
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: zookeeper-data-pvc
-  namespace: weilus-base
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 300Mi
-  storageClassName: zookeeper-data-pv
----
 kind: Service
-apiVersion: v1
 metadata:
-  name: zookeeper
-  namespace: weilus-base
+  name: zk-hs
+spec:
+  ports:
+  - port: 2888
+    name: server
+  - port: 3888
+    name: leader-election
+  clusterIP: None
+  selector:
+    app: zookeeper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-cs
 spec:
   ports:
   - port: 2181
-    protocol: TCP
-    targetPort: 2181
-  clusterIP: 10.96.10.103
+    name: client
   selector:
-    app: jenkins
+    app: zookeeper
 ---
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: zookeeper
   namespace: weilus-base
 spec:
-  replicas: 1
+  serviceName: zookeeper
+  replicas: 2
   selector:
     matchLabels:
       app: zookeeper
@@ -63,10 +47,20 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: server
+        - containerPort: 3888
+          name: leader-election
         volumeMounts:
         - name: zookeeper-data
           mountPath: /data
-      volumes:
-      - name: zookeeper-data
-        persistentVolumeClaim:
-          claimName: zookeeper-data-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: zookeeper-data
+    spec:
+      storageClassName: zk-pv
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 300Mi
