@@ -35,12 +35,14 @@ spec:
         - containerPort: 2181
         - containerPort: 2888
         - containerPort: 3888
+        env:
+        - name: ZOO_CONF_DIR
+          value: /zoo/conf
+        - name: ZOO_DATA_DIR
+          value: /zoo/data
         volumeMounts:
         - name: zookeeper-data
-          mountPath: /data
-        volumeMounts:
-        - name: zookeeper-conf
-          mountPath: /conf
+          mountPath: /zoo
   volumeClaimTemplates:
   - metadata:
       name: zookeeper-data
@@ -49,12 +51,4 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 200Mi
-  - metadata:
-      name: zookeeper-conf
-    spec:
-      storageClassName: zk-pv
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 50Mi
+          storage: 300Mi
