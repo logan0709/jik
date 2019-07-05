@@ -2,7 +2,6 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: zookeeper-data-pv
-  namespace: weilus-cloud
 spec:
   capacity:
     storage: 300Mi
@@ -18,7 +17,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: zookeeper-data-pvc
-  namespace: solr-cloud
+  namespace: weilus-base
 spec:
   accessModes:
   - ReadWriteOnce
@@ -27,11 +26,25 @@ spec:
       storage: 300Mi
   storageClassName: zookeeper-data-pv
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: zookeeper
+  namespace: weilus-base
+spec:
+  ports:
+  - port: 2181
+    protocol: TCP
+    targetPort: 2181
+  clusterIP: 10.96.10.103
+  selector:
+    app: jenkins
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: zookeeper
-  namespace: solr-cloud
+  namespace: weilus-base
 spec:
   replicas: 1
   selector:
@@ -40,7 +53,7 @@ spec:
   template:
     metadata:
       name: zookeeper
-      namespace: solr-cloud
+      namespace: weilus-base
       labels:
         app: zookeeper
     spec:

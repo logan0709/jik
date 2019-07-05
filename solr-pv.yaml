@@ -1,0 +1,63 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: solr-data-pv0
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: solr-data-pv0
+  nfs:
+    path: /data/nfs-k8s/solr/data0
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: solr-data-pv1
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: solr-data-pv1
+  nfs:
+    path: /data/nfs-k8s/solr/data1
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: solr-data-pv2
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: solr-data-pv2
+  nfs:
+    path: /data/nfs-k8s/solr/data2
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: solr-data-pv3
+  namespace: weilus-cloud
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: solr-data-pv3
+  nfs:
+    path: /data/nfs-k8s/solr/data3
+    server: 192.168.1.38

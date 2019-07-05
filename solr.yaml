@@ -1,32 +1,3 @@
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: solr-data-pv
-  namespace: weilus-cloud
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: solr-data-pv
-  nfs:
-    path: /data/nfs-k8s/solr/data
-    server: 192.168.1.38
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: solr-data-pvc
-  namespace: solr-cloud
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: solr-data-pv
----
 kind: Service
 apiVersion: v1
 metadata:
@@ -42,13 +13,14 @@ spec:
   selector:
     app: solr
 ---
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: solr
   namespace: solr-cloud
 spec:
-  replicas: 2
+  serviceName: solr-cloud
+  replicas: 4
   selector:
     matchLabels:
       app: solr
@@ -67,13 +39,17 @@ spec:
         args: ["start -f -c -t /data/solrdata"]
         env:
         - name: ZK_HOST
-          value: zookeeper:2181
+          value: 10.96.10.103:2181
         ports:
         - containerPort: 8983
         volumeMounts:
-        - name: solr-data
+        - name: data
           mountPath: /data/solrdata
-      volumes:
-      - name: solr-data
-        persistentVolumeClaim:
-          claimName: solr-data-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

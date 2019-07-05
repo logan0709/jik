@@ -1,14 +1,8 @@
 ### nfs 目录
 ```
-mkdir -p \
-/data/nfs-k8s/solr/data \
-/data/nfs-k8s/zookeeper/data \
-/data/nfs-k8s/jenkins/data \
-/data/nfs-k8s/gitlab/data \
-/data/nfs-k8s/logs \
-/data/nfs-k8s/mysql/conf \
-/data/nfs-k8s/mysql/data \
-/data/nfs-k8s/redis/data
+mkdir -p /data/nfs-k8s/logs /data/nfs-k8s/mysql/conf
+mkdir -pv /data/nfs-k8s/{redis,mysql,gitlab,jenkins,zookeeper}/data
+mkdir -pv /data/nfs-k8s/solr/{data0,data1,data2,data3}
 ```
 
 ### gitlab 汉化
@@ -28,4 +22,10 @@ docker build -t registry.cn-hangzhou.aliyuncs.com/weilus923/fluent-es:1.0 fluent
 ### EFK 部署
 ```
 kubectl apply -f efk-pvc.yaml -f efk-configmap.yaml -f efk.yaml
+```
+
+
+### solrCloud 部署
+```
+kubectl apply -f zookeeper.yaml -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
 ```
