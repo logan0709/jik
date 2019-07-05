@@ -54,7 +54,10 @@ spec:
           name: server
         - containerPort: 3888
           name: leader-election
-	command: ["sh","-c","start-zookeeper --servers=2"]
+	    command:
+	    - sh
+	    - -c
+	    - "start-zookeeper --servers=2"
         volumeMounts:
         - name: zookeeper-data
           mountPath: /data
