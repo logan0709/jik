@@ -20,7 +20,7 @@ kind: ConfigMap
 metadata:
   name: zk-cm
 data:
-  jvm.heap: "1G"
+  jvm.heap: "512M"
   tick: "2000"
   init: "10"
   sync: "5"
@@ -53,24 +53,24 @@ spec:
       labels:
         app: zk
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values: 
-                    - zk
-              topologyKey: "kubernetes.io/hostname"
+#      affinity:
+#        podAntiAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            - labelSelector:
+#                matchExpressions:
+#                  - key: "app"
+#                    operator: In
+#                    values:
+#                    - zk
+#              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: k8szk
         imagePullPolicy: Always
         image: weilus923/k8szk:v3
-        resources:
-          requests:
-            memory: "2Gi"
-            cpu: "500m"
+#        resources:
+#          requests:
+#            memory: "2Gi"
+#            cpu: "500m"
         ports:
         - containerPort: 2181
           name: client
