@@ -6,15 +6,15 @@ ENV ZK_USER=zookeeper \
     ZK_LOG_DIR=/var/log/zookeeper \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-ARG GPG_KEY=C823E3E5B12AF29C67F81976F5CECB3CB5E9BD2D
-ARG ZK_DIST=zookeeper-3.4.14
+ENV GPG_KEY=C823E3E5B12AF29C67F81976F5CECB3CB5E9BD2D
+ENV ZK_DIST=zookeeper-3.4.14
 
 RUN set -x \
     && apt-get update \
     && apt-get install -y openjdk-8-jre-headless wget netcat-openbsd
 
-RUN wget -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz" \
-    wget -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz.asc"
+RUN wget -q http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz \
+    wget -q http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz.asc
 
 RUN export GNUPGHOME="$(mktemp -d)" \
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY" \
