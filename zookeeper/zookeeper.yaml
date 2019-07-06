@@ -136,15 +136,16 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 5
         volumeMounts:
-        - name: datadir
+        - name: data
           mountPath: /var/lib/zookeeper
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
   volumeClaimTemplates:
   - metadata:
-      name: datadir
+      name: data
     spec:
+      storageClassName: managed-nfs-storage
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
