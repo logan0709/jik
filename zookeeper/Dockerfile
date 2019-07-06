@@ -28,3 +28,4 @@ RUN cp -r /opt/apache-zookeeper-3.5.5/*  /opt/zookeeper && \
     /opt/zookeeper/zookeeper-docs
 
 RUN mkdir -p $ZK_DATA_DIR $ZK_DATA_LOG_DIR $ZK_LOG_DIR
+RUN chown -R zookeeper:zookeeper $ZK_DATA_DIR $ZK_DATA_LOG_DIR $ZK_LOG_DIR /opt/zookeeper/bin
