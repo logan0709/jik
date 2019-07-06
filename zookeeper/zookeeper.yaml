@@ -57,12 +57,12 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data
-    volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        storageClassName: zk-pv
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 20Mi
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      storageClassName: zk-pv
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 20Mi
