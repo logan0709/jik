@@ -125,7 +125,7 @@ spec:
         command:
         - sh
         - -c
-        - zkGenConfig.sh && zkServer.sh start-foreground
+        - /opt/zookeeper/bin/zkGenConfig.sh && /opt/zookeeper/bin/zkServer.sh start-foreground
         readinessProbe:
           exec:
             command:
