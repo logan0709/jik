@@ -53,7 +53,7 @@ spec:
           name: leader-election
         env:
         - name : ZOO_SERVERS
-          value: server.1=zk-0.zk-svc.default.svc.cluster.local:2888:3888,server.2=zk-1.zk-svc.default.svc.cluster.local:2888:3888,server.3=zk-2.zk-svc.default.svc.cluster.local:2888:3888
+          value: zk-0.zk-svc.default.svc.cluster.local:2888:3888,zk-1.zk-svc.default.svc.cluster.local:2888:3888,zk-2.zk-svc.default.svc.cluster.local:2888:3888
         volumeMounts:
         - name: data
           mountPath: /data

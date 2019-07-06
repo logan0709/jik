@@ -1,15 +1,51 @@
 ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-0
+spec:
+  storageClassName: zk-pv
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-1
+spec:
+  storageClassName: zk-pv
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-2
+spec:
+  storageClassName: zk-pv
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+---
 kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: zk-pv1
 spec:
-  capacity:
-    storage: 20Mi
+  storageClassName: zk-pv
+  persistentVolumeReclaimPolicy: Retain
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: zk-pv
+  capacity:
+    storage: 20Mi
   nfs:
     path: /data/nfs-k8s/zookeeper/data1
     server: 192.168.1.38
@@ -19,12 +55,12 @@ apiVersion: v1
 metadata:
   name: zk-pv2
 spec:
+  storageClassName: zk-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: zk-pv
   nfs:
     path: /data/nfs-k8s/zookeeper/data2
     server: 192.168.1.38
@@ -34,48 +70,12 @@ apiVersion: v1
 metadata:
   name: zk-pv3
 spec:
+  storageClassName: zk-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: zk-pv
   nfs:
     path: /data/nfs-k8s/zookeeper/data3
     server: 192.168.1.38
-#---
-#kind: PersistentVolumeClaim
-#apiVersion: v1
-#metadata:
-#  name: zk-pvc1
-#spec:
-#  accessModes:
-#  - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 20Mi
-#  storageClassName: zk-pv
-#---
-#kind: PersistentVolumeClaim
-#apiVersion: v1
-#metadata:
-#  name: zk-pvc2
-#spec:
-#  accessModes:
-#  - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 20Mi
-#  storageClassName: zk-pv
-#---
-#kind: PersistentVolumeClaim
-#apiVersion: v1
-#metadata:
-#  name: zk-pvc3
-#spec:
-#  accessModes:
-#  - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 20Mi
-#  storageClassName: zk-pv
