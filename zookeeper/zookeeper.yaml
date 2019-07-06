@@ -45,6 +45,9 @@ metadata:
 spec:
   serviceName: zk-svc
   replicas: 3
+  selector:
+    matchLabels:
+      app: zk
   template:
     metadata:
       labels:
@@ -141,12 +144,17 @@ spec:
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      storageClassName: managed-nfs-storage
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 10Gi
+      volumes:
+      - name: data
+        nfs:
+          path: /data/nfs-k8s/zookeeper
+          server: 192.168.1.38
+#  volumeClaimTemplates:
+#  - metadata:
+#      name: data
+#    spec:
+#      storageClassName: managed-nfs-storage
+#      accessModes: [ "ReadWriteOnce" ]
+#      resources:
+#        requests:
+#          storage: 10Gi

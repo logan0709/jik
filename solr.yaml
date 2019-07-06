@@ -21,6 +21,9 @@ metadata:
 spec:
   serviceName: solr-svc
   replicas: 4
+  selector:
+    matchLabels:
+      app: solr
   template:
     metadata:
       labels:
