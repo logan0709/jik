@@ -65,7 +65,7 @@ spec:
 #              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: k8szk
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         image: weilus923/k8szk:v3
 #        resources:
 #          requests:
