@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: solr
+  name: solr-svc
   namespace: solr-cloud
 spec:
   ports:
@@ -19,15 +19,10 @@ metadata:
   name: solr
   namespace: solr-cloud
 spec:
-  serviceName: solr-service
+  serviceName: solr-svc
   replicas: 4
-  selector:
-    matchLabels:
-      app: solr
   template:
     metadata:
-      name: solr
-      namespace: solr-cloud
       labels:
         app: solr
     spec:
@@ -49,7 +44,7 @@ spec:
   - metadata:
       name: data
     spec:
-      storageClassName: solr-data-pv
+      storageClassName: solr-data
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
