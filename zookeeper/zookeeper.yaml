@@ -8,8 +8,10 @@ metadata:
 spec:
   ports:
   - port: 2888
+    targetPort: 2888
     name: server
   - port: 3888
+    targetPort: 3888
     name: leader-election
   clusterIP: None
   selector:
@@ -52,6 +54,8 @@ spec:
         - containerPort: 3888
           name: leader-election
         env:
+        - name: ZOO_STANDALONE_ENABLED
+          value: false
         - name: ZOO_SERVERS
           value: "server.1=zk-0.zk-svc.default.svc.cluster.local:2888:3888 server.2=zk-1.zk-svc.default.svc.cluster.local:2888:3888 server.3=zk-2.zk-svc.default.svc.cluster.local:2888:3888"
         volumeMounts:
