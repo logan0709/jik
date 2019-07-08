@@ -52,15 +52,15 @@ spec:
         - containerPort: 3888
           name: leader-election
         env:
-        - name: ZK_CLIENT_PORT
-          value: 2181
-        - name: ZK_SERVER_PORT
-          value: 2888
-        - name: ZK_ELECTION_PORT
-          value: 3888
         - name : ZOO_SERVERS
           value: "server.1=zk-0.zk-svc.default.svc.cluster.local:2888:3888 server.2=zk-1.zk-svc.default.svc.cluster.local:2888:3888 server.3=zk-2.zk-svc.default.svc.cluster.local:2888:3888"
-        volumeMounts:
+        - name: ZK_CLIENT_PORT
+          value: "2181"
+        - name: ZK_SERVER_PORT
+          value: "2888"
+        - name: ZK_ELECTION_PORT
+          value: "3888"
+	volumeMounts:
         - name: data
           mountPath: /data
   volumeClaimTemplates:
