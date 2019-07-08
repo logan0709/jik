@@ -56,6 +56,8 @@ spec:
         env:
         - name: ZOO_STANDALONE_ENABLED
           value: false
+        - name: CLIENT_PORT
+          value: 2181
         - name: ZOO_SERVERS
           value: "server.1=zk-0.zk-svc.default.svc.cluster.local:2888:3888 server.2=zk-1.zk-svc.default.svc.cluster.local:2888:3888 server.3=zk-2.zk-svc.default.svc.cluster.local:2888:3888"
         volumeMounts:
