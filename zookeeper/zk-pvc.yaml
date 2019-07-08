@@ -1,40 +1,4 @@
 ---
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: data-zk-0
-spec:
-  storageClassName: zk-pv
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Mi
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: data-zk-1
-spec:
-  storageClassName: zk-pv
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Mi
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: data-zk-2
-spec:
-  storageClassName: zk-pv
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Mi
----
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -46,9 +10,11 @@ spec:
   - ReadWriteOnce
   capacity:
     storage: 20Mi
-  nfs:
-    path: /data/nfs-k8s/zookeeper/data1
-    server: 192.168.1.38
+  hostPath:
+    path: /data/zookeeper/data1
+#  nfs:
+#    path: /data/nfs-k8s/zookeeper/data1
+#    server: 192.168.1.38
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -61,9 +27,11 @@ spec:
     storage: 20Mi
   accessModes:
   - ReadWriteOnce
-  nfs:
-    path: /data/nfs-k8s/zookeeper/data2
-    server: 192.168.1.38
+  hostPath:
+    path: /data/zookeeper/data2
+#  nfs:
+#    path: /data/nfs-k8s/zookeeper/data2
+#    server: 192.168.1.38
 ---
 kind: PersistentVolume
 apiVersion: v1
@@ -76,6 +44,8 @@ spec:
     storage: 20Mi
   accessModes:
   - ReadWriteOnce
-  nfs:
-    path: /data/nfs-k8s/zookeeper/data3
-    server: 192.168.1.38
+  hostPath:
+    path: /data/zookeeper/data3
+#  nfs:
+#    path: /data/nfs-k8s/zookeeper/data3
+#    server: 192.168.1.38
