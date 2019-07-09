@@ -3,7 +3,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: data-solr-pv0
-  namespace: weilus-cloud
+  namespace: solr-cloud
   labels:
     pv: data-solr-pv0
 spec:
@@ -21,7 +21,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: data-solr-pv1
-  namespace: weilus-cloud
+  namespace: solr-cloud
   labels:
     pv: data-solr-pv1
 spec:
@@ -39,7 +39,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: data-solr-pv2
-  namespace: weilus-cloud
+  namespace: solr-cloud
   labels:
     pv: data-solr-pv2
 spec:
@@ -57,7 +57,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: data-solr-pv3
-  namespace: weilus-cloud
+  namespace: solr-cloud
   labels:
     pv: data-solr-pv3
 spec:
