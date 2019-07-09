@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: data-solr-0
-  namespace: weilus-cloud
+  namespace: solr-cloud
 spec:
   accessModes:
   - ReadWriteOnce
@@ -19,7 +19,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: data-solr-1
-  namespace: weilus-cloud
+  namespace: solr-cloud
 spec:
   accessModes:
   - ReadWriteOnce
@@ -35,7 +35,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: data-solr-2
-  namespace: weilus-cloud
+  namespace: solr-cloud
 spec:
   accessModes:
   - ReadWriteOnce
@@ -51,7 +51,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: data-solr-3
-  namespace: weilus-cloud
+  namespace: solr-cloud
 spec:
   accessModes:
   - ReadWriteOnce
