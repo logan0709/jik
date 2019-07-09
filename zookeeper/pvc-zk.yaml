@@ -1,0 +1,49 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-0
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-zk-pv
+  selector:
+    matchLabels:
+      pv: data-zk-pv0
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-1
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-zk-pv
+  selector:
+    matchLabels:
+      pv: data-zk-pv1
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-zk-2
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-zk-pv
+  selector:
+    matchLabels:
+      pv: data-zk-pv2
+---

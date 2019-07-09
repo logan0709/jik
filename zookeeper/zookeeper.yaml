@@ -70,7 +70,7 @@ spec:
   - metadata:
       name: data
     spec:
-      storageClassName: zk-pv
+      storageClassName: data-zk-pv
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:

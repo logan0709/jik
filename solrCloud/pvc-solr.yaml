@@ -1,0 +1,65 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-solr-0
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-solr-pv
+  selector:
+    matchLabels:
+      pv: data-solr-pv0
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-solr-1
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-solr-pv
+  selector:
+    matchLabels:
+      pv: data-solr-pv1
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-solr-2
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-solr-pv
+  selector:
+    matchLabels:
+      pv: data-solr-pv2
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-solr-3
+  namespace: weilus-cloud
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi
+  storageClassName: data-solr-pv
+  selector:
+    matchLabels:
+      pv: data-solr-pv3
+---

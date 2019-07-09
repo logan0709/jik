@@ -47,7 +47,7 @@ spec:
   - metadata:
       name: data
     spec:
-      storageClassName: solr-data-pv
+      storageClassName: data-solr-pv
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:

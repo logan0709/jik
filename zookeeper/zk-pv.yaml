@@ -2,9 +2,11 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: zk-pv1
+  name: zk-pv0
+  lables:
+    pv: data-zk-pv0
 spec:
-  storageClassName: zk-pv
+  storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
   accessModes:
   - ReadWriteOnce
@@ -19,9 +21,11 @@ spec:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: zk-pv2
+  name: zk-pv1
+  lables:
+    pv: data-zk-pv1
 spec:
-  storageClassName: zk-pv
+  storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
@@ -36,9 +40,11 @@ spec:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: zk-pv3
+  name: zk-pv2
+  lables:
+    pv: data-zk-pv2
 spec:
-  storageClassName: zk-pv
+  storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
