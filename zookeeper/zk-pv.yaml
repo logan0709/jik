@@ -3,7 +3,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: zk-pv0
-  lables:
+  labels:
     pv: data-zk-pv0
 spec:
   storageClassName: data-zk-pv
@@ -22,7 +22,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: zk-pv1
-  lables:
+  labels:
     pv: data-zk-pv1
 spec:
   storageClassName: data-zk-pv
@@ -41,7 +41,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: zk-pv2
-  lables:
+  labels:
     pv: data-zk-pv2
 spec:
   storageClassName: data-zk-pv
