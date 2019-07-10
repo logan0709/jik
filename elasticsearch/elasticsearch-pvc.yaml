@@ -34,7 +34,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: es-data-elasticsearch-0
+  name: es-data-es-0
   namespace: ns-elastic
 spec:
   storageClassName: elasticsearch-pv-sc
@@ -49,7 +49,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: es-data-elasticsearch-1
+  name: es-data-es-1
   namespace: ns-elastic
 spec:
   storageClassName: elasticsearch-pv-sc
