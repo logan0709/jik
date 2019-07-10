@@ -1,0 +1,62 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elasticsearch-pv0
+  labels:
+    pv: elasticsearch-pv0
+spec:
+  storageClassName: elasticsearch-pv-sc
+  accessModes: ["ReadWriteOnce"]
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /data/nfs-k8s/elasticsearch/data1
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elasticsearch-pv1
+  labels:
+    pv: elasticsearch-pv1
+spec:
+  storageClassName: elasticsearch-pv-sc
+  accessModes: ["ReadWriteOnce"]
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /data/nfs-k8s/elasticsearch/data2
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: es-data-elasticsearch-0
+  namespace: ns-elastic
+spec:
+  storageClassName: elasticsearch-pv-sc
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      pv: elasticsearch-pv0
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: es-data-elasticsearch-1
+  namespace: ns-elastic
+spec:
+  storageClassName: elasticsearch-pv-sc
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      pv: elasticsearch-pv1
