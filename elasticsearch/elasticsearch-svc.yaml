@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+ labels:
+   app: elasticsearch
+ name: elasticsearch-service
+ namespace: ns-elastic
+spec:
+ ports:
+   - port: 9200
+     targetPort: 9200
+ type: NodePort
+ selector:
+   app: elasticsearch
+---
