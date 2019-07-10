@@ -59,7 +59,7 @@ spec:
            - name: "node.data"
              value: "true"
            - name: "ES_JAVA_OPTS"
-             value: "-Xms1024m -Xmx1024m"
+             value: "-Xms512m -Xmx512m"
          securityContext:
            privileged: true
          volumeMounts:
