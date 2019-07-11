@@ -1,84 +1,91 @@
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv0
+  name: data-redis-0
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data0
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv0
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv1
+  name: data-redis-1
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data1
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv1
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv2
+  name: data-redis-2
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data2
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv2
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv3
+  name: data-redis-3
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data3
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv3
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv4
+  name: data-redis-4
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data4
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv4
 ---
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: redis-data-pv5
+  name: data-redis-5
+  namespace: weilus-cloud
 spec:
-  persistentVolumeReclaimPolicy: Retain
   accessModes: ["ReadWriteOnce"]
   storageClassName: data-redis-pv
-  capacity:
-    storage: 200Mi
-  nfs:
-    path: /data/nfs-k8s/redis/data5
-    server: 192.168.1.38
+  resources:
+    requests:
+      storage: 20Mi
+  selector:
+    matchLabels:
+      pv: data-redis-pv5
+---

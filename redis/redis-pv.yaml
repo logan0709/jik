@@ -1,0 +1,96 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv0
+  labels:
+    pv: data-redis-pv0
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data0
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv1
+  labels:
+    pv: data-redis-pv1
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data1
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv2
+  labels:
+    pv: data-redis-pv2
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data2
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv3
+  labels:
+    pv: data-redis-pv3
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data3
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv4
+  labels:
+    pv: data-redis-pv4
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data4
+    server: 192.168.1.38
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-redis-pv5
+  labels:
+    pv: data-redis-pv5
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-redis-pv
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/redis/data5
+    server: 192.168.1.38
