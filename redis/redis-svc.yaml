@@ -1,53 +1,25 @@
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: redis-data-pv
-  namespace: weilus-cloud
-spec:
-  capacity:
-    storage: 200Mi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: redis-data-pv
-  nfs:
-    path: /data/nfs-k8s/redis/data
-    server: 192.168.1.38
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: redis-data-pvc
-  namespace: weilus-cloud
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 200Mi
-  storageClassName: redis-data-pv
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: redis
+  name: redis-svc
   namespace: weilus-cloud
 spec:
   ports:
   - port: 6379
-    protocol: TCP
     targetPort: 6379
   clusterIP: 10.96.10.102
   selector:
     app: redis
 ---
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: redis
   namespace: weilus-cloud
 spec:
-  replicas: 1
+  replicas: 6
+  serviceName: redis-svc
   selector:
     matchLabels:
       app: redis
@@ -61,17 +33,23 @@ spec:
       containers:
       - name: redis
         image: redis
+        imagePullPolicy: IfNotPresent
         command:
         - redis-server
         args:
         - --requirepass '123456'
-        imagePullPolicy: IfNotPresent
+        - --cluster-enabled yes
         ports:
         - containerPort: 6379
         volumeMounts:
-        - name: redis-data
+        - name: data
           mountPath: /data
-      volumes:
-      - name: redis-data
-        persistentVolumeClaim:
-          claimName: redis-data-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      storageClassName: data-redis-pv
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
