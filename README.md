@@ -2,7 +2,7 @@
 ```
 mkdir -p /data/nfs-k8s/logs /data/nfs-k8s/mysql/conf
 mkdir -pv /data/nfs-k8s/{redis,mysql,gitlab,jenkins,zookeeper}/data
-mkdir -pv /data/nfs-k8s/solr/{data0,data1,data2,data3}
+
 ```
 
 ### gitlab 汉化
@@ -26,11 +26,19 @@ kubectl apply -f efk-pvc.yaml -f efk-configmap.yaml -f efk.yaml
 
 ### solrCloud 部署
 ```
-kubectl apply -f zookeeper.yaml
+nfs #> mkdir -pv /data/nfs-k8s/solr/{data0,data1,data2,data3}
+k8s #> kubectl apply -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
+```
 
-docker run -it --rm zookeeper:3.5 zkCli.sh -server 192.168.1.37:2181
-
-kubectl apply -f solr-pv.yaml -f solr-pvc.yaml -f solr.yaml
+### zookeeper集群
+```
+nfs #> mkdir -pv /data/nfs-k8s/zookeeper/{data1,data2,data3}
+k8s #> kubectl apply -f zk-pv.yaml -f zk-pvc.yaml -f zookeeper.yaml
 ```
 
 
+### redis集群
+```
+nfs #> mkdir -pv /data/nfs-k8s/redis/{data0,data1,data2,data3,data4,data5}
+k8s #> kubectl apply -f redis-pv.yaml -f redis-pvc.yaml -f redis-svc.yaml
+```
