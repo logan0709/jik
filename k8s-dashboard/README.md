@@ -1,4 +1,4 @@
-### dashboard证书
+### dashboard https
 ```
   openssl genrsa -out dashboard.key 2048
 
@@ -8,10 +8,12 @@
 
   kubectl create secret generic kubernetes-dashboard-certs --from-file=dashboard.key --from-file=dashboard.crt -n kube-system
 
-  kubectl describe secret kubernetes-dashboard-certs -n kube-system
+  kubectl -n kube-system get secret kubernetes-dashboard-certs -o yaml
 ```
 
 
+### dashboard token
 
-
-kubectl describe secret kubernetes-dashboard-token-xtpgt -n kube-system
+```
+kubectl apply -f kubernates-user-admin.yaml
+```
