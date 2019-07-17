@@ -4,13 +4,11 @@ metadata:
   name: cloud-logs-pv
   namespace: weilus-base
 spec:
+  accessModes: ["ReadWriteMany","ReadOnlyMany"]
+  storageClassName: cloud-logs-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
-  accessModes:
-  - ReadWriteMany
-  - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: cloud-logs-pv
   nfs:
     path: /data/nfs-k8s/logs
     server: 192.168.1.38
@@ -21,9 +19,8 @@ metadata:
   name: fluent-log-read-pvc
   namespace: weilus-base
 spec:
-  accessModes:
-  - ReadOnlyMany
+  accessModes: ["ReadOnlyMany"]
+  storageClassName: cloud-logs-pv
   resources:
     requests:
       storage: 1Gi
-  storageClassName: cloud-logs-pv

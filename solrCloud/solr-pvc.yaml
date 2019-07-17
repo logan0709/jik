@@ -5,12 +5,11 @@ metadata:
   name: data-solr-0
   namespace: solr-cloud
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
   resources:
     requests:
       storage: 20Mi
-  storageClassName: data-solr-pv
   selector:
     matchLabels:
       pv: data-solr-pv0
@@ -21,12 +20,11 @@ metadata:
   name: data-solr-1
   namespace: solr-cloud
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
   resources:
     requests:
       storage: 20Mi
-  storageClassName: data-solr-pv
   selector:
     matchLabels:
       pv: data-solr-pv1
@@ -37,12 +35,11 @@ metadata:
   name: data-solr-2
   namespace: solr-cloud
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
   resources:
     requests:
       storage: 20Mi
-  storageClassName: data-solr-pv
   selector:
     matchLabels:
       pv: data-solr-pv2
@@ -53,12 +50,11 @@ metadata:
   name: data-solr-3
   namespace: solr-cloud
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
   resources:
     requests:
       storage: 20Mi
-  storageClassName: data-solr-pv
   selector:
     matchLabels:
       pv: data-solr-pv3

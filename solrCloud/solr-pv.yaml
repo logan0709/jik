@@ -7,12 +7,11 @@ metadata:
   labels:
     pv: data-solr-pv0
 spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: data-solr-pv
   nfs:
     path: /data/nfs-k8s/solr/data0
     server: 192.168.1.38
@@ -25,12 +24,11 @@ metadata:
   labels:
     pv: data-solr-pv1
 spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: data-solr-pv
   nfs:
     path: /data/nfs-k8s/solr/data1
     server: 192.168.1.38
@@ -43,12 +41,11 @@ metadata:
   labels:
     pv: data-solr-pv2
 spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: data-solr-pv
   nfs:
     path: /data/nfs-k8s/solr/data2
     server: 192.168.1.38
@@ -61,12 +58,11 @@ metadata:
   labels:
     pv: data-solr-pv3
 spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: data-solr-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: data-solr-pv
   nfs:
     path: /data/nfs-k8s/solr/data3
     server: 192.168.1.38

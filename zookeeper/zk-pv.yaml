@@ -6,10 +6,9 @@ metadata:
   labels:
     pv: data-zk-pv0
 spec:
+  accessModes: ["ReadWriteOnce"]
   storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
-  accessModes:
-  - ReadWriteOnce
   capacity:
     storage: 20Mi
   hostPath:
@@ -25,12 +24,11 @@ metadata:
   labels:
     pv: data-zk-pv1
 spec:
+  accessModes: ["ReadWriteOnce"]
   storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
-  accessModes:
-  - ReadWriteOnce
   hostPath:
     path: /data/zookeeper/data2
 #  nfs:
@@ -44,12 +42,11 @@ metadata:
   labels:
     pv: data-zk-pv2
 spec:
+  accessModes: ["ReadWriteOnce"]
   storageClassName: data-zk-pv
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 20Mi
-  accessModes:
-  - ReadWriteOnce
   hostPath:
     path: /data/zookeeper/data3
 #  nfs:

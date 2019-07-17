@@ -6,8 +6,8 @@ metadata:
   labels:
     pv: elasticsearch-pv0
 spec:
-  storageClassName: elasticsearch-pv-sc
   accessModes: ["ReadWriteOnce"]
+  storageClassName: elasticsearch-pv-sc
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
@@ -22,8 +22,8 @@ metadata:
   labels:
     pv: elasticsearch-pv1
 spec:
-  storageClassName: elasticsearch-pv-sc
   accessModes: ["ReadWriteOnce"]
+  storageClassName: elasticsearch-pv-sc
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1Gi
@@ -37,8 +37,8 @@ metadata:
   name: es-data-es-0
   namespace: ns-elastic
 spec:
-  storageClassName: elasticsearch-pv-sc
   accessModes: ["ReadWriteOnce"]
+  storageClassName: elasticsearch-pv-sc
   resources:
     requests:
       storage: 1Gi
@@ -52,8 +52,8 @@ metadata:
   name: es-data-es-1
   namespace: ns-elastic
 spec:
-  storageClassName: elasticsearch-pv-sc
   accessModes: ["ReadWriteOnce"]
+  storageClassName: elasticsearch-pv-sc
   resources:
     requests:
       storage: 1Gi

@@ -4,12 +4,11 @@ metadata:
   name: jenkins-data-pv
   namespace: weilus-base
 spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: jenkins-data-pv
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 5Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: jenkins-data-pv
   nfs:
     path: /data/nfs-k8s/jenkins/data
     server: 192.168.1.38
@@ -20,12 +19,11 @@ metadata:
   name: jenkins-data-pvc
   namespace: weilus-base
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: jenkins-data-pv
   resources:
     requests:
       storage: 5Gi
-  storageClassName: jenkins-data-pv
 ---
 kind: Service
 apiVersion: v1
