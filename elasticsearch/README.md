@@ -7,7 +7,7 @@ wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2
 ```
 > 2. 修改配置
 ```
-unzip elasticsearch-analysis-ik-6.7.2.zip -d ik
+[elasticsearch]# unzip elasticsearch-analysis-ik-6.7.2.zip -d ik
 
 [elasticsearch]# vi ik/config/IKAnalyzer.cfg.xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -24,7 +24,7 @@ unzip elasticsearch-analysis-ik-6.7.2.zip -d ik
         <!-- <entry key="remote_ext_stopwords">words_location</entry> -->
 </properties>
 
-tar -zcf ik.tar.gz ik
+[elasticsearch]# tar -zcf ik.tar.gz ik
 ```
 
 > 3. 制作elasticsearch镜像
