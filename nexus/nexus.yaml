@@ -1,0 +1,45 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nexus
+  namespace: weilus-cloud
+spec:
+  ports:
+  - port: 8081
+    targetPort: 8081
+    nodePort: 31881  # 30000 - 32767
+  type: NodePort
+  selector:
+    app: nexus
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nexus
+  namespace: weilus-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      name: nexus
+      namespace: weilus-cloud
+      labels:
+        app: nexus
+    spec:
+      containers:
+      - name: nexus
+        image: sonatype/nexus3
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+        volumeMounts:
+        - name: nexus-data
+          mountPath: /nexus-data
+      volumes:
+      - name: nexus-data
+        persistentVolumeClaim:
+          claimName: nexus-data-pvc
