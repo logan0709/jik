@@ -1,0 +1,26 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongo-data-pv
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: mongo-data-pv
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /data/nfs-k8s/mongo/data
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongo-data-pvc
+  namespace: weilus-cloud
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: mongo-data-pv
+  resources:
+    requests:
+      storage: 1Gi
