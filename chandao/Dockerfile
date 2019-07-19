@@ -14,6 +14,7 @@ RUN {\
       echo "session.save_path=/tmp";\
     }>>/usr/local/etc/php/php.ini
 ADD chandao-entrypoint.sh /
+RUN chmod 777 /chandao-entrypoint.sh
 ENTRYPOINT ["/chandao-entrypoint.sh"]
 # docker build -t chandao:11.6 .
 # docker run -d --name=chandao -p 8080:80 chandao:11.6
