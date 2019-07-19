@@ -15,7 +15,7 @@ RUN {\
     }>>/usr/local/etc/php/php.ini
 ADD chandao-entrypoint.sh /usr/local/bin
 RUN chmod 777 /usr/local/bin/chandao-entrypoint.sh
-ENTRYPOINT ["chandao-entrypoint.sh"]
+ENTRYPOINT ["sh chandao-entrypoint.sh && apache2-foreground"]
 # docker build -t chandao:11.6 .
-# docker run -d --name=chandao -p 8080:80 chandao:11.6
+# docker run -d --name=chandao -p 8080:80 -e MYSQL_HOST=10.96.10.101 -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD=weilus chandao:11.6
 # http://192.168.1.37:8080/zentaopms/www/install.php
