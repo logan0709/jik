@@ -29,5 +29,5 @@ wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2
 
 > 3. 制作elasticsearch镜像
 ```
-docker build -t es-ik:6.7.2 .
+docker build -t es-ik:6.7.2 es-ik
 ```
