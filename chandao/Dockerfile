@@ -13,8 +13,9 @@ RUN {\
       echo "date.timezone=Asia/Shanghai";\
       echo "session.save_path=/tmp";\
     }>>/usr/local/etc/php/php.ini
-ADD mysql-config.sh /
-RUN chmod 777 /mysql-config.sh
+
+ADD docker-php-entrypoint /usr/local/bin/
+RUN chmod 777 /usr/local/bin/docker-php-entrypoint
 # docker build -t chandao:11.6 .
 # docker run -d --name=chandao -p 8080:80 -e MYSQL_HOST=10.96.10.101 -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD=weilus chandao:11.6
 # http://192.168.1.37:8080/zentaopms/www/install.php

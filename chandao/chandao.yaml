@@ -1,0 +1,47 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: chandao
+  namespace: weilus-base
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30000  # 30000 - 32767
+  type: NodePort
+  selector:
+    app: chandao
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: chandao
+  namespace: weilus-base
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chandao
+  template:
+    metadata:
+      name: chandao
+      namespace: weilus-base
+      labels:
+        app: chandao
+    spec:
+      containers:
+      - name: chandao
+        image: chandao:11.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: MYSQL_HOST
+          value: "10.96.10.101"
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          value: "weilus"

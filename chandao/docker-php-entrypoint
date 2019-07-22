@@ -1,4 +1,6 @@
-#! /bin/bash
+#!/bin/sh
+set -e
+
 cat >> /var/www/html/zentaopms/config/my.php <<EOF
 <?php
 \$config->installed       = true;
@@ -14,3 +16,10 @@ cat >> /var/www/html/zentaopms/config/my.php <<EOF
 \$config->webRoot         = getWebRoot();
 \$config->default->lang   = 'zh-cn';
 EOF
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+        set -- apache2-foreground "$@"
+fi
+
+exec "$@"
