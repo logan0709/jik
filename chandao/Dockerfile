@@ -6,8 +6,9 @@ RUN apt-get update && apt install -y curl unzip
 # https://www.zentao.net/download/80153.html
 RUN curl -fL -o ZenTaoPMS.11.6.stable.zip http://dl.cnezsoft.com/zentao/11.6/ZenTaoPMS.11.6.stable.zip
 
-RUN unzip ZenTaoPMS.11.6.stable.zip -d /var/www/html \
-    && rm -f ZenTaoPMS.11.6.stable.zip zentaopms/www/install.php zentaopms/www/upgrade.php
+RUN unzip ZenTaoPMS.11.6.stable.zip \
+    && rm -f ZenTaoPMS.11.6.stable.zip zentaopms/www/install.php zentaopms/www/upgrade.php \
+    && apt remove -y curl unzip
 
 RUN {\
       echo "date.timezone=Asia/Shanghai";\
