@@ -8,6 +8,7 @@ RUN curl -fL -o ZenTaoPMS.11.6.stable.zip http://dl.cnezsoft.com/zentao/11.6/Zen
 
 RUN unzip ZenTaoPMS.11.6.stable.zip \
     && rm -f ZenTaoPMS.11.6.stable.zip zentaopms/www/install.php zentaopms/www/upgrade.php \
+    && mv zentaopms/www/* /var/www/html && mv zentaopms/* /var/www && rm -rf zentaopms \
     && apt remove -y curl unzip
 
 RUN {\
@@ -19,4 +20,4 @@ ADD docker-php-entrypoint /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-php-entrypoint
 # docker build -t chandao:11.6 .
 # docker run -d --name=chandao -p 8080:80 -e MYSQL_HOST=10.96.10.101 -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD=weilus chandao:11.6
-# http://192.168.1.37:8080/zentaopms/www/install.php
+# http://192.168.1.37:8080
