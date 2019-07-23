@@ -1,5 +1,5 @@
 #! /bin/sh
-cat >> plugins/ik/config/IKAnalyzer.cfg.xml <<EOF
+cat >> /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
@@ -14,3 +14,4 @@ cat >> plugins/ik/config/IKAnalyzer.cfg.xml <<EOF
         <entry key="remote_ext_stopwords">$remote_ext_stopwords</entry>
 </properties>
 EOF
+chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml
