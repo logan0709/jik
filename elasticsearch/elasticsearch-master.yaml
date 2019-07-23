@@ -63,10 +63,6 @@ spec:
              value: "false"
            - name: "ES_JAVA_OPTS"
              value: "-Xms512m -Xmx512m"
-           - name: "remote_ext_dict"
-             value: "http://example.com/ext.dic"
-           - name: "remote_ext_stopwords"
-             value: "http://example.com/ext_stop.dic"
          securityContext:
            privileged: true
 ---
