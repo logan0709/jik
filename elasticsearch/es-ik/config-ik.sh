@@ -14,4 +14,4 @@ cat >> /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml <<EOF
         <entry key="remote_ext_stopwords">$remote_ext_stopwords</entry>
 </properties>
 EOF
-chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml
+chown -R root:root /usr/share/elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml
