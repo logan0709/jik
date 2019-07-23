@@ -10,7 +10,7 @@ data:
       <source>
         @id gateway
         @type tail
-        format /^(?<time>[^ ]* [^ ,]*)[^\[]*\[[^\]]*\]\[(?<severity>[^ \]]*) *\] (?<message>.*)$/
+        format /^(?<time>[^ ]* [^ ,]*)[^\[]*\[[^\]]*\]\[(?<level>[^ \]]*) *\] (?<message>.*)$/
         time_format %Y-%m-%d %H:%M:%S
         path /fluentd/log/gateway.log
         pos_file /fluentd/log/pos/gateway.pos
@@ -18,25 +18,15 @@ data:
       </source>
 
       <match gateway.log>
-          @id elasticsearch
           @type elasticsearch
-          @log_level info
-          index_name gateway
-          type_name _doc
           host localhost
           port 9200
-          logstash_format true
-          <buffer>
-              @type file
-              path /var/log/fluentd-buffers/kubernetes.system.buffer
-              flush_mode interval
-              retry_type exponential_backoff
-              flush_thread_count 2
-              flush_interval 5s
-              retry_forever
-              retry_max_interval 30
-              chunk_limit_size 2M
-              queue_limit_length 8
-              overflow_action block
+          flush_interval 10s
+          index_name ${tag}-%Y.%m.%d
+          type_name  ${tag}-%Y.%m.%d
+          include_tag_key true
+          tag_key @log_name
+          <buffer tag, time>
+             timekey 1h
           </buffer>
       </match>
