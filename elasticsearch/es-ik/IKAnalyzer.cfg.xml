@@ -7,7 +7,7 @@
     <!--用户可以在这里配置自己的扩展停止词字典-->
     <entry key="ext_stopwords"></entry>
     <!--用户可以在这里配置远程扩展字典 -->
-    <entry key="remote_ext_dict">http://example.com/ext.dic</entry>
+    <entry key="remote_ext_dict">http://10.96.10.254/ext.dic</entry>
     <!--用户可以在这里配置远程扩展停止词字典-->
-    <entry key="remote_ext_stopwords">http://example.com/ext-stop.dic</entry>
+    <entry key="remote_ext_stopwords">http://10.96.10.254/ext-stop.dic</entry>
 </properties>

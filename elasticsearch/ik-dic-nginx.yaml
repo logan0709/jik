@@ -1,0 +1,72 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: ik-nginx-pv
+spec:
+  accessModes: ["ReadOnlyOnce"]
+  storageClassName: ik-nginx-pv-sc
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 200Mi
+  nfs:
+    path: /data/nfs-k8s/elasticsearch/ik
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ik-nginx-pvc
+  namespace: ns-elastic
+spec:
+  accessModes: ["ReadOnlyOnce"]
+  storageClassName: ik-nginx-pv-sc
+  resources:
+    requests:
+      storage: 200Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+ labels:
+   app: ik-nginx
+ name: ik-nginx
+ namespace: ns-elastic
+spec:
+ ports:
+   - port: 80
+     targetPort: 80
+ clusterIP: 10.96.10.254
+ selector:
+   app: ik-nginx
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ik-nginx
+  namespace: ns-elastic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ik-nginx
+  template:
+    metadata:
+      name: ik-nginx
+      namespace: ns-elastic
+      labels:
+        app: ik-nginx
+    spec:
+      volumes:
+      - name: nginx-html
+        persistentVolumeClaim:
+          claimName: ik-nginx-pvc
+      containers:
+      - name: ik-nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-html
+          mountPath: /usr/share/nginx/html
