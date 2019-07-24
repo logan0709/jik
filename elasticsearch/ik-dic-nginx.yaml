@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: ik-nginx-pv
 spec:
-  accessModes: ["ReadOnlyOnce"]
+  accessModes: ["ReadOnlyMany"]
   storageClassName: ik-nginx-pv-sc
   persistentVolumeReclaimPolicy: Retain
   capacity:
@@ -19,7 +19,7 @@ metadata:
   name: ik-nginx-pvc
   namespace: ns-elastic
 spec:
-  accessModes: ["ReadOnlyOnce"]
+  accessModes: ["ReadOnlyMany"]
   storageClassName: ik-nginx-pv-sc
   resources:
     requests:
