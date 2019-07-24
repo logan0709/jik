@@ -62,7 +62,7 @@ spec:
            - name: "node.ingest"
              value: "false"
            - name: "ES_JAVA_OPTS"
-             value: "-Xms512m -Xmx512m"
+             value: "-Xms128m -Xmx128m"
          securityContext:
            privileged: true
 ---
