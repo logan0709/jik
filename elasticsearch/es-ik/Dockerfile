@@ -1,4 +1,7 @@
 FROM openjdk:8-jre-alpine
+
+RUN addgroup -S elasticsearch && adduser -S -G elasticsearch elasticsearch
+
 ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch-${ES_VERSION}/bin:${PATH}
 WORKDIR /usr/share/elasticsearch-${ES_VERSION}
@@ -16,5 +19,4 @@ RUN apk del .fetch-deps
 
 ADD docker-entrypoint.sh /usr/local/bin
 ADD IKAnalyzer.cfg.xml plugins/ik/config/
-
 ENTRYPOINT ["docker-entrypoint.sh"]
