@@ -9,7 +9,7 @@ RUN curl -fL -o elasticsearch.zip https://artifacts.elastic.co/downloads/elastic
     && unzip elasticsearch.zip -d /usr/share/ \
     && rm -f elasticsearch.zip
 RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v${ES_VERSION}/elasticsearch-analysis-ik-${ES_VERSION}.zip \
-    && unzip es-ik-plugins.zip -d plugins/ik
+    && unzip es-ik-plugins.zip -d plugins/ik \
     && rm -f es-ik-plugins.zip
 
 RUN apk del .fetch-deps
