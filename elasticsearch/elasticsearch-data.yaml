@@ -39,15 +39,15 @@ spec:
        app: elasticsearch
        role: data
    spec:
+     imagePullSecrets:
+     - name: docker-registry-key
      containers:
        - name: elasticsearch-data
-         image: es-ik:6.7.2
+         image: registry.cn-hangzhou.aliyuncs.com/weilus923/es-ik:6.7.2
          command: ["bash", "-c", "ulimit -l unlimited && sysctl -w vm.max_map_count=262144 && chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data && exec su elasticsearch docker-entrypoint.sh"]
          ports:
            - containerPort: 9200
-             protocol: TCP
            - containerPort: 9300
-             protocol: TCP
          env:
            - name: "cluster.name"
              value: "elasticsearch-cluster"
