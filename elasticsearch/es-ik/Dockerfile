@@ -19,4 +19,7 @@ RUN apk del .fetch-deps
 
 ADD docker-entrypoint.sh /usr/local/bin
 ADD IKAnalyzer.cfg.xml plugins/ik/config/
+
+VOLUME /usr/share/elasticsearch-${ES_VERSION}/data
+
 ENTRYPOINT ["docker-entrypoint.sh"]
