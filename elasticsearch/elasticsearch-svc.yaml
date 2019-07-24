@@ -4,6 +4,22 @@ apiVersion: v1
 metadata:
  labels:
    app: elasticsearch
+ name: elasticsearch-discovery
+ namespace: ns-elastic
+spec:
+ ports:
+   - port: 9300
+     targetPort: 9300
+ type: NodePort
+ selector:
+   app: elasticsearch
+   role: master
+---
+kind: Service
+apiVersion: v1
+metadata:
+ labels:
+   app: elasticsearch
  name: elasticsearch-service
  namespace: ns-elastic
 spec:
