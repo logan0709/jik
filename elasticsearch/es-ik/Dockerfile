@@ -8,9 +8,9 @@ ADD elasticsearch-6.2.2.zip ./elasticsearch.zip
 RUN unzip elasticsearch.zip -d /usr/share/ \
     && mv /usr/share/elasticsearch-6.2.2 /usr/share/elasticsearch \
     && rm -f elasticsearch.zip
-RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip \
-    && unzip es-ik-plugins.zip -d /usr/share/elasticsearch/plugins/ik \
-    && rm -f es-ik-plugins.zip
+#RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip \
+#    && unzip es-ik-plugins.zip -d /usr/share/elasticsearch/plugins/ik \
+#    && rm -f es-ik-plugins.zip
 
 RUN apk del .fetch-deps
 
@@ -19,16 +19,13 @@ RUN adduser -S -G root elasticsearch
 ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 ADD docker-entrypoint.sh /usr/local/bin
-ADD IKAnalyzer.cfg.xml plugins/ik/config/
+#ADD IKAnalyzer.cfg.xml plugins/ik/config/
 
-RUN chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
+RUN mkdir -p /usr/share/elasticsearch/data
+    && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
     && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch \
-    && for path in ./data ./logs ./config ./config/scripts; do \
-    		mkdir -p "$path"; \
-    		chown -R elasticsearch:root "$path"; \
-       done; \
-       export ES_JAVA_OPTS='-Xms32m -Xmx32m';
+    && export ES_JAVA_OPTS='-Xms32m -Xmx32m';
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-ENTRYPOINT ["elasticsearch"]
+ENTRYPOINT ["docker-entrypoint.sh"]
