@@ -35,4 +35,4 @@ RUN chown -R elasticsearch:elasticsearch /usr/share/elasticsearch /usr/local/bin
     	\
     	export ES_JAVA_OPTS='-Xms32m -Xmx32m';
 USER elasticsearch
-#ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
