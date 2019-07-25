@@ -36,4 +36,4 @@ RUN    for path in ./data ./logs ./config ./config/scripts; do \
     	\
     	export ES_JAVA_OPTS='-Xms32m -Xmx32m';
 USER elasticsearch
-ENTRYPOINT ["elasticsearch","-Ecluster.name=elasticsearch-cluster","-Enode.master=true","-Enode.data=true"]
+#ENTRYPOINT ["elasticsearch","-Ecluster.name=elasticsearch-cluster","-Enode.master=true","-Enode.data=true"]
