@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 # Files created by Elasticsearch should always be group writable too
@@ -15,7 +15,7 @@ run_as_other_user_if_needed() {
   fi
 }
 
-declare -a es_opts
+es_opts=''
 
 while IFS='=' read -r envvar_key envvar_value
 do
@@ -25,11 +25,13 @@ do
   if [[ "$envvar_key" =~ ^[a-z0-9_]+\.[a-z0-9_]+ || "$envvar_key" == "processors" ]]; then
     if [[ ! -z $envvar_value ]]; then
       es_opt="-E${envvar_key}=${envvar_value}"
-      es_opts+=("${es_opt}")
+      es_opts="${es_opts} ${es_opt}"
     fi
   fi
-done < <(env)
+done
+
+echo $es_opts
 
 export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
-run_as_other_user_if_needed elasticsearch "${es_opts[@]}"
+run_as_other_user_if_needed /usr/share/elasticsearch-$ES_VERSION/bin/elasticsearch "${es_opts}"
