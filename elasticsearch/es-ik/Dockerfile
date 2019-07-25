@@ -19,17 +19,18 @@ RUN adduser -S -G root elasticsearch
 ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 ENV ES_HOME /usr/share/elasticsearch
+ENV ES_TMPDIR /usr/share/elasticsearch/tmp
 
 ADD docker-entrypoint.sh /usr/local/bin
 #ADD IKAnalyzer.cfg.xml plugins/ik/config/
 
-RUN mkdir -p /usr/share/elasticsearch/data \
+RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
     && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
     && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch \
     && export ES_JAVA_OPTS='-Xms32m -Xmx32m';
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-#ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 #-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true
