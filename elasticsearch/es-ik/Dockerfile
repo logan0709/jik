@@ -26,7 +26,7 @@ ADD docker-entrypoint.sh /usr/local/bin/
 RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
     && chown -R elastic:root /usr/share/elasticsearch \
     && chown -R elastic:root /usr/local/bin/docker-entrypoint.sh \
-    && chown u+x /usr/local/bin/docker-entrypoint.sh
+    && chmod u+x /usr/local/bin/docker-entrypoint.sh
 
 USER elastic
 VOLUME /usr/share/elasticsearch/data
