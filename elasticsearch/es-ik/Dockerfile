@@ -12,7 +12,7 @@ RUN unzip elasticsearch.zip -d /usr/share/ \
 RUN apk del .fetch-deps
 
 WORKDIR /usr/share/elasticsearch
-RUN adduser -S -G root elasticsearch
+RUN adduser -S -G root elastic
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp
 ENV ES_JAVA_OPTS='-Xms32m -Xmx32m'
@@ -24,10 +24,11 @@ ENV node.data='true'
 ADD docker-entrypoint.sh /usr/local/bin/
 
 RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
-    && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
+    && chown -R elastic:root /usr/share/elasticsearch \
+    && chown -R elastic:root /usr/local/bin/docker-entrypoint.sh \
     && chown u+x /usr/local/bin/docker-entrypoint.sh
 
-USER elasticsearch
+USER elastic
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
 #ENTRYPOINT ["elasticsearch"]
