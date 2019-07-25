@@ -15,11 +15,20 @@ WORKDIR /usr/share/elasticsearch
 RUN adduser -S -G root elasticsearch
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp
-ENV ES_JAVA_OPTS='-Xms32m -Xmx32m' cluster.name='elasticsearch-cluster' discovery.zen.ping.unicast.hosts='elasticsearch-discovery' node.master='true' node.data='true'
+ENV ES_JAVA_OPTS='-Xms32m -Xmx32m'
+ENV cluster.name='elasticsearch-cluster'
+ENV discovery.zen.ping.unicast.hosts='elasticsearch-discovery'
+ENV node.master='true'
+ENV node.data='true'
 
-RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} && chown -R elasticsearch:root /usr/share/elasticsearch
+ADD docker-entrypoint.sh /usr/local/bin/
+
+RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
+    && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
+    && chmod -R 777 /usr/share/elasticsearch/data /usr/local/bin/docker-entrypoint.sh
 
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
 #ENTRYPOINT ["elasticsearch"]
+#-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true
