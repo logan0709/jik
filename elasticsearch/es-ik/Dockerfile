@@ -17,9 +17,7 @@ ENV PATH /usr/share/elasticsearch/bin:$PATH
 ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp
 ENV ES_JAVA_OPTS='-Xms32m -Xmx32m' cluster.name='elasticsearch-cluster' discovery.zen.ping.unicast.hosts='elasticsearch-discovery' node.master='true' node.data='true'
 
-RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
-    && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
-    && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch
+RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} && chown -R elasticsearch:root /usr/share/elasticsearch
 
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
