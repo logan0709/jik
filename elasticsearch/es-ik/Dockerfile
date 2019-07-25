@@ -18,6 +18,8 @@ WORKDIR /usr/share/elasticsearch
 RUN adduser -S -G root elasticsearch
 ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch/bin:$PATH
+ENV ES_HOME /usr/share/elasticsearch
+
 ADD docker-entrypoint.sh /usr/local/bin
 #ADD IKAnalyzer.cfg.xml plugins/ik/config/
 
@@ -29,3 +31,5 @@ USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
 #ENTRYPOINT ["docker-entrypoint.sh"]
+
+#-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true
