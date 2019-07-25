@@ -28,4 +28,4 @@ RUN mkdir -p /usr/share/elasticsearch/data \
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-ENTRYPOINT ["docker-entrypoint.sh"]
+#ENTRYPOINT ["docker-entrypoint.sh"]
