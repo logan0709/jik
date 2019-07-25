@@ -12,5 +12,5 @@ do
       es_opts+="${es_opt}"
     fi
   fi
-done < <(env)
+done < <env
 echo $es_opts
