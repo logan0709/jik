@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Files created by Elasticsearch should always be group writable too
@@ -34,4 +34,4 @@ echo $es_opts
 
 export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
-run_as_other_user_if_needed /usr/share/elasticsearch-$ES_VERSION/bin/elasticsearch "${es_opts}"
+run_as_other_user_if_needed elasticsearch "${es_opts}"
