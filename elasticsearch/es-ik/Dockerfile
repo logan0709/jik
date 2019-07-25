@@ -28,4 +28,4 @@ VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
 RUN chown -R elasticsearch:elasticsearch /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh && chmod u+x /usr/local/bin/docker-entrypoint.sh
 USER elasticsearch
-ENTRYPOINT ["docker-entrypoint.sh"]
+#ENTRYPOINT ["docker-entrypoint.sh"]
