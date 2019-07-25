@@ -3,11 +3,11 @@ https://github.com/medcl/elasticsearch-analysis-ik/releases
 
 > 1. 下载中文分词
 ```
-wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2/elasticsearch-analysis-ik-6.7.2.zip
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip
 ```
 > 2. 修改配置
 ```
-[elasticsearch]# unzip elasticsearch-analysis-ik-6.7.2.zip -d ik
+[elasticsearch]# unzip elasticsearch-analysis-ik-6.2.2.zip -d ik
 
 [elasticsearch]# vi ik/config/IKAnalyzer.cfg.xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -29,5 +29,5 @@ wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2
 
 > 3. 制作elasticsearch镜像
 ```
-docker build -t es-ik:6.7.2 es-ik
+docker build -t es-ik:6.2.2 es-ik
 ```

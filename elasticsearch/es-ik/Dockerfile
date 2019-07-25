@@ -22,6 +22,10 @@ RUN mkdir ./data ./tmp && chown -R elastic:root /usr/share/elasticsearch
 USER elastic
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-
-CMD ["-Ecluster.name=${cluster.name}","-Enode.master=${node.master}","-Enode.data=${node.data}","-Ediscovery.zen.ping.unicast.hosts=${discovery.zen.ping.unicast.hosts}"]
+CMD ["-Ediscovery.zen.ping_timeout=5s",\
+     "-Ediscovery.zen.minimum_master_nodes=2",\
+     "-Ecluster.name=${cluster.name}",\
+     "-Enode.master=${node.master}",\
+     "-Enode.data=${node.data}",\
+     "-Ediscovery.zen.ping.unicast.hosts=${discovery.zen.ping.unicast.hosts}"]
 ENTRYPOINT ["elasticsearch"]
