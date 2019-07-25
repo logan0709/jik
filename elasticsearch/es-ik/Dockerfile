@@ -23,13 +23,12 @@ ENV node.data='true'
 
 ADD docker-entrypoint.sh /usr/local/bin/
 
-RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
-    && chown -R elastic:root /usr/share/elasticsearch \
-    && chown -R elastic:root /usr/local/bin/docker-entrypoint.sh \
-    && chmod u+x /usr/local/bin/docker-entrypoint.sh
+RUN mkdir ./data ./tmp \
+    && chown -R elastic:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
+    && chmod 777 /usr/local/bin/docker-entrypoint.sh
 
 USER elastic
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-#ENTRYPOINT ["elasticsearch"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 #-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true

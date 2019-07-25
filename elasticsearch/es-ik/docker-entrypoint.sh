@@ -4,7 +4,7 @@
 #node.master='true'
 #node.data='true'
 es_opts=''
-while IFS='=' read -r envvar_key envvar_value
+env | while IFS='=' read -r envvar_key envvar_value
 do
   if [[ "$envvar_key" =~ ^[a-z0-9_]+\.[a-z0-9_]+ || "$envvar_key" == "processors" ]]; then
     if [[ ! -z $envvar_value ]]; then
@@ -12,5 +12,5 @@ do
       es_opts+="${es_opt}"
     fi
   fi
-done < <env
+done
 echo $es_opts
