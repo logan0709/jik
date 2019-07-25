@@ -19,4 +19,4 @@ echo $es_opts
 
 export ES_JAVA_OPTS="-Des.cgroups.hierarchy.override=/ $ES_JAVA_OPTS"
 
-exec elasticsearch "${es_opts}"
+sh elasticsearch "${es_opts}"
