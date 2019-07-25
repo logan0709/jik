@@ -6,9 +6,9 @@ RUN apk add --virtual .fetch-deps curl unzip
 #    && \
 ADD elasticsearch-6.2.2.zip ./elasticsearch.zip
 RUN unzip elasticsearch.zip -d /usr/share/ \
-    && mv /usr/share/elasticsearch-${ES_VERSION} /usr/share/elasticsearch \
+    && mv /usr/share/elasticsearch-6.2.2 /usr/share/elasticsearch \
     && rm -f elasticsearch.zip
-RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v${ES_VERSION}/elasticsearch-analysis-ik-${ES_VERSION}.zip \
+RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip \
     && unzip es-ik-plugins.zip -d /usr/share/elasticsearch/plugins/ik \
     && rm -f es-ik-plugins.zip
 
