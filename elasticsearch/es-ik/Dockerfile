@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-alpine
 
-RUN adduser -S -G elasticsearch root
+RUN adduser -S -G root elasticsearch
 
 ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch/bin:$PATH
