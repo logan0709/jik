@@ -21,7 +21,7 @@ ENV PATH /usr/share/elasticsearch/bin:$PATH
 ADD docker-entrypoint.sh /usr/local/bin
 #ADD IKAnalyzer.cfg.xml plugins/ik/config/
 
-RUN mkdir -p /usr/share/elasticsearch/data
+RUN mkdir -p /usr/share/elasticsearch/data \
     && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
     && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch \
     && export ES_JAVA_OPTS='-Xms32m -Xmx32m';
