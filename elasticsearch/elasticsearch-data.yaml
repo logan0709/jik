@@ -44,15 +44,12 @@ spec:
      containers:
        - name: elasticsearch-data
          image: registry.cn-hangzhou.aliyuncs.com/weilus923/es-ik:6.2.2
-         command: ["bash", "-c", "ulimit -l unlimited && sysctl -w vm.max_map_count=262144 && chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data && exec su elasticsearch docker-entrypoint.sh"]
          ports:
            - containerPort: 9200
            - containerPort: 9300
          env:
            - name: "cluster.name"
              value: "elasticsearch-cluster"
-           - name: "bootstrap.memory_lock"
-             value: "true"
            - name: "discovery.zen.ping.unicast.hosts"
              value: "elasticsearch-discovery"
            - name: "node.master"

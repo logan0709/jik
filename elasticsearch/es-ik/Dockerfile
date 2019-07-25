@@ -14,21 +14,14 @@ RUN apk del .fetch-deps
 WORKDIR /usr/share/elasticsearch
 RUN adduser -S -G root elastic
 ENV PATH /usr/share/elasticsearch/bin:$PATH
-ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp
-ENV ES_JAVA_OPTS='-Xms32m -Xmx32m'
-ENV cluster.name='elasticsearch-cluster'
-ENV discovery.zen.ping.unicast.hosts='elasticsearch-discovery'
-ENV node.master='true'
-ENV node.data='true'
+ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp ES_JAVA_OPTS='-Xms32m -Xmx32m'
+ENV cluster.name='elasticsearch-cluster' discovery.zen.ping.unicast.hosts='elasticsearch-discovery' node.master='true' node.data='true'
 
-ADD docker-entrypoint.sh /usr/local/bin/
-
-RUN mkdir ./data ./tmp \
-    && chown -R elastic:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
-    && chmod 777 /usr/local/bin/docker-entrypoint.sh
+RUN mkdir ./data ./tmp && chown -R elastic:root /usr/share/elasticsearch
 
 USER elastic
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-ENTRYPOINT ["docker-entrypoint.sh"]
-#-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true
+
+CMD ["-Ecluster.name=${cluster.name}","-Enode.master=${node.master}","-Enode.data=${node.data}","-Ediscovery.zen.ping.unicast.hosts=${discovery.zen.ping.unicast.hosts}"]
+ENTRYPOINT ["elasticsearch"]
