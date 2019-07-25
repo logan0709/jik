@@ -1,36 +1,27 @@
 FROM openjdk:8-jre-alpine
 
 RUN apk add --virtual .fetch-deps curl unzip
+# https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip
+# https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.zip
 
-# RUN curl -fL -o elasticsearch.zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.zip \
-#    && \
 ADD elasticsearch-6.2.2.zip ./elasticsearch.zip
 RUN unzip elasticsearch.zip -d /usr/share/ \
     && mv /usr/share/elasticsearch-6.2.2 /usr/share/elasticsearch \
     && rm -f elasticsearch.zip
-#RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip \
-#    && unzip es-ik-plugins.zip -d /usr/share/elasticsearch/plugins/ik \
-#    && rm -f es-ik-plugins.zip
 
 RUN apk del .fetch-deps
 
 WORKDIR /usr/share/elasticsearch
 RUN adduser -S -G root elasticsearch
-ENV ES_VERSION 6.2.2
 ENV PATH /usr/share/elasticsearch/bin:$PATH
-ENV ES_HOME /usr/share/elasticsearch
-ENV ES_TMPDIR /usr/share/elasticsearch/tmp
-
-ADD docker-entrypoint.sh /usr/local/bin
-#ADD IKAnalyzer.cfg.xml plugins/ik/config/
+ENV ES_HOME=/usr/share/elasticsearch ES_TMPDIR=/usr/share/elasticsearch/tmp
+ENV ES_JAVA_OPTS='-Xms32m -Xmx32m' cluster.name='elasticsearch-cluster' discovery.zen.ping.unicast.hosts='elasticsearch-discovery' node.master='true' node.data='true'
 
 RUN mkdir -pv /usr/share/elasticsearch/{data,tmp} \
     && chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
-    && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch \
-    && export ES_JAVA_OPTS='-Xms32m -Xmx32m';
+    && chmod u+x /usr/local/bin/docker-entrypoint.sh /usr/share/elasticsearch/bin/elasticsearch
+
 USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-ENTRYPOINT ["docker-entrypoint.sh"]
-
-#-Ecluster.name=elasticsearch-cluster -Ediscovery.zen.ping.unicast.hosts=elasticsearch-discovery -Enode.master=true -Enode.data=true
+#ENTRYPOINT ["elasticsearch"]
