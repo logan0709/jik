@@ -1,10 +1,5 @@
 FROM openjdk:8-jre-alpine
 
-RUN adduser -S -G root elasticsearch
-
-ENV ES_VERSION 6.2.2
-ENV PATH /usr/share/elasticsearch/bin:$PATH
-
 RUN apk add --virtual .fetch-deps curl unzip
 
 # RUN curl -fL -o elasticsearch.zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.zip \
@@ -19,19 +14,21 @@ RUN curl -fL -o es-ik-plugins.zip https://github.com/medcl/elasticsearch-analysi
 
 RUN apk del .fetch-deps
 
-ADD docker-entrypoint.sh /usr/local/bin
 WORKDIR /usr/share/elasticsearch
+RUN adduser -S -G root elasticsearch
+ENV ES_VERSION 6.2.2
+ENV PATH /usr/share/elasticsearch/bin:$PATH
+ADD docker-entrypoint.sh /usr/local/bin
 ADD IKAnalyzer.cfg.xml plugins/ik/config/
 
+RUN chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
+    && chmod u+x /usr/local/bin/docker-entrypoint.sh \
+    && for path in ./data ./logs ./config ./config/scripts; do \
+    		mkdir -p "$path"; \
+    		chown -R elasticsearch:root "$path"; \
+       done; \
+       export ES_JAVA_OPTS='-Xms32m -Xmx32m';
+USER elasticsearch
 VOLUME /usr/share/elasticsearch/data
 EXPOSE 9200 9300
-RUN chown -R elasticsearch:root /usr/share/elasticsearch /usr/local/bin/docker-entrypoint.sh \
-    && chmod u+x /usr/local/bin/docker-entrypoint.sh
-RUN    for path in ./data ./logs ./config ./config/scripts; do \
-    		mkdir -p "$path"; \
-    		chown -R elasticsearch:elasticsearch "$path"; \
-    	done; \
-    	\
-    	export ES_JAVA_OPTS='-Xms32m -Xmx32m';
-USER elasticsearch
-#ENTRYPOINT ["elasticsearch","-Ecluster.name=elasticsearch-cluster","-Enode.master=true","-Enode.data=true"]
+ENTRYPOINT ["docker-entrypoint.sh"]
