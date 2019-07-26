@@ -6,7 +6,8 @@ RUN elasticsearch-plugin remove ingest-geoip \
     && elasticsearch-plugin remove x-pack \
     && unzip es-ik-plugins.zip -d plugins \
     && mv plugins/elasticsearch plugins/ik \
-    && rm -f es-ik-plugins.zip
+    && rm -f es-ik-plugins.zip config/elasticsearch.keystore \
+    && sed -i '$d' config/elasticsearch.yml
 
 ADD IKAnalyzer.cfg.xml plugins/ik/config/
 RUN chown -R root:root plugins/ik/config/IKAnalyzer.cfg.xml
