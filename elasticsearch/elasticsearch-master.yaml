@@ -49,7 +49,7 @@ spec:
            - name: "node.ingest"
              value: "false"
            - name: "ES_JAVA_OPTS"
-             value: "-Xms256m -Xmx256m"
+             value: "-Djava.security.manager -Djava.security.policy=/plugin-ik-security.policy -Xms256m -Xmx256m"
          securityContext:
            privileged: true
 ---
