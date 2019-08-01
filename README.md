@@ -45,3 +45,20 @@ k8s #> kubectl apply -f redis-pv.yaml -f redis-pvc.yaml -f redis-svc.yaml
 nfs #> mkdir -pv /data/nfs-k8s/elasticsearch/{data1,data2}
 k8s #> kubectl apply -f elasticsearch-pvc.yaml -f elasticsearch-master.yaml -f elasticsearch-data.yaml -f elasticsearch-svc.yaml
 ```
+
+### chandao 禅道
+```
+k8s #> kubectl apply -f chandao.yaml
+```
+
+### nexus MAVEN私服
+```
+nfs #> mkdir -p /data/nfs-k8s/nexus/data && chown -R 200 /data/nfs-k8s/nexus/data
+k8s #> kubectl apply -f nexus/nexus-pvc.yaml -f nexus/nexus.yaml
+```
+
+### postgres
+```
+nfs #> mkdir -p /data/nfs-k8s/postgres/data
+k8s #> kubectl apply -f postgres-pvc.yaml -f postgres.yaml
+```

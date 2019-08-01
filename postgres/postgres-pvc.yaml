@@ -1,0 +1,27 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-data-pv
+  namespace: weilus-cloud
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: postgres-data-pv
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /data/nfs-k8s/postgres/data
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-data-pvc
+  namespace: weilus-cloud
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: postgres-data-pv
+  resources:
+    requests:
+      storage: 1Gi
