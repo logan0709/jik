@@ -16,4 +16,8 @@ RUN mkdir -p /docker/svn \
 
 EXPOSE 80
 VOLUME ["/docker/svn"]
+
+COPY authz /etc/httpd/conf
+COPY passwd /etc/httpd/conf
+
 ENTRYPOINT ["dockerd-entrypoint.sh"]

@@ -1,0 +1,17 @@
+[group]
+admin=admin
+deplover=simith
+ops=jhon
+
+[/]
+@admin=rw
+
+[test1:/]
+@ops=r
+@deplover=rw
+@admin=rw
+
+[jik:/]
+@ops=rw
+@deplover=rw
+@admin=rw
