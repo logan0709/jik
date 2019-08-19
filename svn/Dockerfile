@@ -12,7 +12,7 @@ RUN mkdir -p /docker/svn \
 		echo "LoadModule authz_svn_module modules/mod_authz_svn.so";\
 	}>>/etc/httpd/conf/httpd.conf \
 	&& \
-	chown u+x /usr/local/bin/dockerd-entrypoint.sh
+	chmod 777 /usr/local/bin/dockerd-entrypoint.sh
 
 
 
