@@ -10,6 +10,7 @@ RUN mkdir -p /docker/svn \
     {\
 	    echo "LoadModule dav_svn_module modules/mod_dav_svn.so";\
 		echo "LoadModule authz_svn_module modules/mod_authz_svn.so";\
+		echo "ServerName localhost:80";\
 	}>>/etc/httpd/conf/httpd.conf \
 	&& \
 	chmod 777 /usr/local/bin/dockerd-entrypoint.sh
