@@ -14,8 +14,6 @@ RUN mkdir -p /docker/svn \
 	&& \
 	chmod 777 /usr/local/bin/dockerd-entrypoint.sh
 
-
-
 EXPOSE 80
 VOLUME ["/docker/svn"]
 ENTRYPOINT ["dockerd-entrypoint.sh"]
