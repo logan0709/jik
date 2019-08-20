@@ -13,6 +13,33 @@ spec:
   selector:
     app: svn
 ---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: svn-repo-pv
+  namespace: weilus-base
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: svn-repo-pv
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 10Gi
+  nfs:
+    path: /data/nfs-k8s/svn/repo
+    server: 192.168.1.38
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: svn-repo-pvc
+  namespace: weilus-base
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: svn-repo-pv
+  resources:
+    requests:
+      storage: 10Gi
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:

@@ -1,6 +1,6 @@
 ## 安装
 ```
-docker build -t svn:apache2-alpine .
+docker build -t svn:apache2-alpine build
 ```
 
 ## 初始化仓库
@@ -42,4 +42,9 @@ admin = rw
 [jik:/]
 admin = rw
 * =
+```
+
+## K8S
+```
+kubectl apply -f svn-auth-configmap.yaml -f svn.yaml
 ```
