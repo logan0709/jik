@@ -1,3 +1,7 @@
+## 安装
+docker build -t svn:test .
+
+## 运行
 docker run -d --name=svn \
 -p 8080:80 \
 -v $(pwd)/repo:/svn/repo \
