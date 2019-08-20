@@ -1,21 +1,18 @@
-FROM httpd
-RUN apt-get update
-RUN apt-get install -y subversion
-RUN apt-get install -y libapache2-mod-svn
+FROM alpine:3.5
+RUN apk update && apk add apache2 apache2-utils apache2-webdav subversion mod_dav_svn
 
-ADD subversion.conf /etc/httpd/conf.d
+COPY authz /etc/apache2/conf
+COPY passwd /etc/apache2/conf
+ADD subversion.conf /etc/apache2/conf.d
 
-RUN mkdir -p /docker/svn \
-    && \
-    chmod 777 -R /docker/svn \
-    && \
-    {\
-	    echo "LoadModule dav_svn_module modules/mod_dav_svn.so";\
-		echo "LoadModule authz_svn_module modules/mod_authz_svn.so";\
-	}>>/usr/local/apache2/conf/httpd.conf
+ENV APACHE_RUN_USER root
+ENV APACHE_RUN_GROUP root
+ENV APACHE_LOG_DIR /var/log/apache2
+
+RUN mkdir -p /svn/repo /run/apache2 && chmod 777 -R /svn/repo
 
 EXPOSE 80
-VOLUME ["/docker/svn"]
+VOLUME ["/svn/repo"]
+WORKDIR /var/www/localhost/htdocs
 
-COPY authz /etc/httpd/conf
-COPY passwd /etc/httpd/conf
+CMD ["httpd", "-D", "FOREGROUND"]
