@@ -8,7 +8,7 @@ RUN mkdir -p /svn/repo /run/apache2 /etc/apache2/auth && chmod 777 -R /svn/repo 
         echo "#! /bin/bash";\
         echo "svnserve -d -r /svn/repo";\
         echo "httpd -D FOREGROUND";\
-    } >> /usr/bin/dockerd-entrypoint.sh && chmod 777 /usr/bin/dockerd-entrypoint.sh
+    } >> /usr/sbin/dockerd-entrypoint.sh && chmod 775 /usr/sbin/dockerd-entrypoint.sh
 
 EXPOSE 80
 VOLUME ["/svn/repo","/etc/apache2/auth","/var/log/apache2"]
