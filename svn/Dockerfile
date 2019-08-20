@@ -1,7 +1,7 @@
 FROM httpd
 RUN apt-get update
 RUN apt-get install -y subversion
-RUN apt-get install -y libapache2-svn
+RUN apt-get install -y libapache2-mod-svn
 
 ADD subversion.conf /etc/httpd/conf.d
 
