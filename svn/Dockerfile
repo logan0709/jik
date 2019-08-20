@@ -1,8 +1,8 @@
 FROM alpine:3.5
 RUN apk update && apk add apache2 apache2-utils apache2-webdav subversion mod_dav_svn
 
-COPY authz /etc/apache2/conf
-COPY passwd /etc/apache2/conf
+COPY authz /etc/apache2
+COPY passwd /etc/apache2
 ADD subversion.conf /etc/apache2/conf.d
 
 ENV APACHE_RUN_USER root
