@@ -1,20 +1,28 @@
 ## 安装
 ```
-docker build -t svn:test .
+docker build -t svn:apache2-alpine .
 ```
 
 ## 初始化仓库
 ```
-docker run --rm -v $(pwd)/repo:/svn/repo svn:test svnadmin create /svn/repo/jik
-docker run --rm -v $(pwd)/repo:/svn/repo svn:test svnadmin create /svn/repo/test1
+docker run --rm -v $(pwd)/repo:/svn/repo svn:apache2-alpine svnadmin create /svn/repo/jik
+docker run --rm -v $(pwd)/repo:/svn/repo svn:apache2-alpine svnadmin create /svn/repo/test1
 ```
 
 ## 运行
 ```
-docker run -d --name=svn -p 8080:80 -v $(pwd)/repo:/svn/repo -v $(pwd)/auth-conf:/etc/apache2/auth -v $(pwd)/logs:/var/log/apache2 svn:test
+docker run -d --name=svn -p 8080:80 \
+-v $(pwd)/repo:/svn/repo \
+-v $(pwd)/auth-conf:/etc/apache2/auth \
+-v $(pwd)/logs:/var/log/apache2 \
+svn:apache2-alpine
 ```
 
-## 配置账号
+## 访问
+```
+http://192.168.1.37:8080/svn/test1
+```
+## 配置账号 auth-conf/passwd
 ```
 htpasswd -cbm auth-conf/passwd admin admin123
 ```

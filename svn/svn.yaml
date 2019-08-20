@@ -1,0 +1,50 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svn
+  namespace: weilus-base
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30000  # 30000 - 32767
+  type: NodePort
+  selector:
+    app: svn
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: svn
+  namespace: weilus-base
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svn
+  template:
+    metadata:
+      name: svn
+      namespace: weilus-base
+      labels:
+        app: svn
+    spec:
+      containers:
+      - name: svn
+        image: svn:apache2-alpine
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: repo
+          mountPath: /svn/repo
+        - name: auth
+          mountPath: /etc/apache2/auth
+      volumes:
+      - name: repo
+        persistentVolumeClaim:
+          claimName: svn-repo-pvc
+      - name: auth
+        configMap:
+          name: cm-svn-auth
