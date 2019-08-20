@@ -1,5 +1,5 @@
 FROM httpd
-RUN apt-get update && apt-get install -y subversion mod_dav_svn
+RUN apt-get update && apt-get install -y subversion libapache2-svn
 ADD subversion.conf /etc/httpd/conf.d
 
 RUN mkdir -p /docker/svn \
