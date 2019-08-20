@@ -7,4 +7,4 @@ RUN mkdir -p /svn/repo /run/apache2 /etc/apache2/auth && chmod 777 -R /svn/repo
 EXPOSE 80
 VOLUME ["/svn/repo","/etc/apache2/auth","/var/log/apache2"]
 WORKDIR /etc/apache2
-ENTRYPOINT ["dockerd-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dockerd-entrypoint.sh"]
