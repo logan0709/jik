@@ -6,7 +6,7 @@ RUN set -ex && \
     [ ! -e /etc/nsswitch.conf ] && echo ‘hosts: files dns‘ > /etc/nsswitch.conf
 
 #https://download.docker.com/linux/static/
-RUN curl -fL -o docker.tgz https://download.docker.com/linux/static/stable/x86_64/docker-18.09.6.tgz
+RUN curl -fL -o docker.tgz https://download.docker.com/linux/static/stable/x86_64/docker-19.03.0.tgz
 RUN tar --extract --file docker.tgz --strip-components 1 --directory /usr/local/bin/ && rm docker.tgz
 
 # http://mirrors.jenkins-ci.org
