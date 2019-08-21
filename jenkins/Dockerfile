@@ -26,5 +26,5 @@ ENV JENKINS_HOME     /var/jenkins_home
 ENV MAVEN_HOME       /var/lib/apache-maven-3.6.1
 ENV GRADLE_HOME      /var/lib/gradle-5.6
 ENV GRADLE_USER_HOME /var/jenkins_home/gradle/repo
-ENV PATH=${PATH}:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin
+ENV PATH             ${PATH}:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin
 CMD ["dockerd-entrypoint.sh","java","-jar","jenkins.war"]
