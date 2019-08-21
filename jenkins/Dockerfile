@@ -22,5 +22,9 @@ ADD dockerd-entrypoint.sh /usr/local/bin
 RUN chmod 777 /usr/local/bin/dockerd-entrypoint.sh && apk del .fetch-deps
 VOLUME ["/var/jenkins_home"]
 EXPOSE 8080
-ENV JENKINS_HOME=/var/jenkins_home MAVEN_HOME=/var/lib/apache-maven-3.6.1 GRADLE_HOME=/var/lib/gradle-5.6 GRADLE_USER_HOME=/var/jenkins_home/gradle/repo PATH=${PATH}:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin
+ENV JENKINS_HOME     /var/jenkins_home
+ENV MAVEN_HOME       /var/lib/apache-maven-3.6.1
+ENV GRADLE_HOME      /var/lib/gradle-5.6
+ENV GRADLE_USER_HOME /var/jenkins_home/gradle/repo
+ENV PATH=${PATH}:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin
 CMD ["dockerd-entrypoint.sh","java","-jar","jenkins.war"]
