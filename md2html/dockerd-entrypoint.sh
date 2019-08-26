@@ -1,3 +1,3 @@
 #! /bin/sh
-echo "$@"
+echo "python md2html.py $@"
 python md2html.py "$@"
